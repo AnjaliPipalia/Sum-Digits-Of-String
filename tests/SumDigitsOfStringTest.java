@@ -1,6 +1,9 @@
-import org.junit.Test;
+package tests;
 
+import org.junit.Test;
+import src.SumDigitsOfString;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -86,8 +89,10 @@ public class SumDigitsOfStringTest {
         try {
             obj.getSumFromFile("NONEXISTENT.txt");
             fail("Expected Exception to be thrown.");
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             assertTrue(e.getMessage(), true);
+        } catch (Exception e) {
+            fail("Should have thrown IOException.");
         }
     }
 
@@ -98,6 +103,8 @@ public class SumDigitsOfStringTest {
             createFile("file.mp3", "1234");
             assertNotEquals(10, obj.getSumFromFile("file.mp3"));
             fail("Expected Exception to be thrown.");
+        } catch (FileNotFoundException e){
+            fail("Should have thrown the parent Exception");
         } catch (Exception e) {
             assertTrue(e.getMessage(), true);
         }
