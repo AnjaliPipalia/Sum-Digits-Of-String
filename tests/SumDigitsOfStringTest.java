@@ -1,5 +1,9 @@
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import static org.junit.Assert.*;
 
 public class SumDigitsOfStringTest {
@@ -37,4 +41,54 @@ public class SumDigitsOfStringTest {
         assertEquals(120, obj.getHexadecimalSumFromString("123456789ABCDEFghji"));
         assertEquals(76, obj.getHexadecimalSumFromString("ffrdaad"));
     }
+
+    @Test
+    public void getSumFromFile() {
+        SumDigitsOfString obj = new SumDigitsOfString();
+
+        createFile("file.tmp", "abc123");
+        assertEquals(6, obj.getSumFromFile("file.tmp"));
+
+        createFile("file.tmp", "abcd");
+        assertEquals(0, obj.getSumFromFile("file2.tmp"));
+
+        createFile("file.tmp", "abcabc");
+        assertEquals(0, obj.getSumFromFile("file3.text"));
+
+        createFile("file.tmp", "123 123");
+        assertEquals(12, obj.getSumFromFile("file.tmp"));
+
+        createFile("file.tmp", "123");
+        assertEquals(6, obj.getSumFromFile("file.tmp"));
+
+        createFile("file.tmp", "abcd 987");
+        assertEquals(24, obj.getSumFromFile("file.tmp"));
+
+        createFile("file.tmp", "-100");
+        assertEquals(1, obj.getSumFromFile("file.tmp"));
+
+        createFile("file.tmp", "1234567890");
+        assertEquals(45, obj.getSumFromFile("file.tmp"));
+
+        createFile("file.tmp", "abcd &&(&^*%^&");
+        assertEquals(0, obj.getSumFromFile("file.tmp"));
+
+        createFile("file.tmp", "1\n2\n3\n4");
+        assertEquals(10, obj.getSumFromFile("file.tmp"));
+    }
+
+    private void createFile(String fileName, String content) {
+        try {
+            File file = new File(fileName);
+            file.createNewFile();
+            FileOutputStream fileOutputStream = new FileOutputStream(file, false);
+            byte[] bytes = content.getBytes();
+            fileOutputStream.write(bytes);
+            fileOutputStream.close();
+        } catch (IOException e) {
+            fail("Exception Occurred.");
+        }
+    }
+
+
 }
