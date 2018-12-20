@@ -1,4 +1,4 @@
-# Sum-Digits-Of-String
+# Sum Digits Of String
 
 Write a program that will iterate over the input, adding the digits, and returning the result.
 
@@ -30,7 +30,7 @@ $ java -cp "lib/junit-4.12.jar;" src/SumDigitsOfString -f file.tmp
 The project requires external libraries that should be put in the 'lib' folder. More details present there.
 
 ## Compile
-The Java program needs to be compiled before running. There are two classes: SumDigitsOfString.java and SumDigitsOfStringTest.java which are present in src and tests folder respectively.
+The Java program needs to be compiled before running. There are two classes: _SumDigitsOfString.java_ and _SumDigitsOfStringTest.java_ which are present in _src_ and _tests_ folder respectively.
 To compile them, run the following commands from the root folder of the project.
 ```
 javac -cp "lib/junit-4.12.jar;" src/SumDigitsOfString.java
