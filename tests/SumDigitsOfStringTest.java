@@ -43,17 +43,17 @@ public class SumDigitsOfStringTest {
     }
 
     @Test
-    public void getSumFromFile() {
+    public void getSumFromFile() throws Exception {
         SumDigitsOfString obj = new SumDigitsOfString();
 
         createFile("file.tmp", "abc123");
         assertEquals(6, obj.getSumFromFile("file.tmp"));
 
-        createFile("file.tmp", "abcd");
+        createFile("file2.tmp", "abcd");
         assertEquals(0, obj.getSumFromFile("file2.tmp"));
 
-        createFile("file.tmp", "abcabc");
-        assertEquals(0, obj.getSumFromFile("file3.text"));
+        createFile("file3.txt", "abcabc");
+        assertEquals(0, obj.getSumFromFile("file3.txt"));
 
         createFile("file.tmp", "123 123");
         assertEquals(12, obj.getSumFromFile("file.tmp"));
@@ -75,6 +75,32 @@ public class SumDigitsOfStringTest {
 
         createFile("file.tmp", "1\n2\n3\n4");
         assertEquals(10, obj.getSumFromFile("file.tmp"));
+
+        createFile("file.tmp", "1234");
+        assertEquals(10, obj.getSumFromFile("file.tmp"));
+    }
+
+    @Test
+    public void getSumFromFileWithFileNotFoundException() {
+        SumDigitsOfString obj = new SumDigitsOfString();
+        try {
+            obj.getSumFromFile("NONEXISTENT.txt");
+            fail("Expected Exception to be thrown.");
+        } catch (Exception e) {
+            assertTrue(e.getMessage(), true);
+        }
+    }
+
+    @Test
+    public void getSumFromFileWithExtensionNotSupportedException() {
+        SumDigitsOfString obj = new SumDigitsOfString();
+        try {
+            createFile("file.mp3", "1234");
+            assertNotEquals(10, obj.getSumFromFile("file.mp3"));
+            fail("Expected Exception to be thrown.");
+        } catch (Exception e) {
+            assertTrue(e.getMessage(), true);
+        }
     }
 
     private void createFile(String fileName, String content) {

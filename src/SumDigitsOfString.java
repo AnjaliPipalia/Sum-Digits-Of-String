@@ -1,3 +1,10 @@
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Set;
+
 public class SumDigitsOfString {
 
     // For default string
@@ -22,7 +29,31 @@ public class SumDigitsOfString {
         return sum;
     }
 
-    protected long getSumFromFile(String filePath) {
-        return 0;
+    protected long getSumFromFile(String filePath) throws Exception {
+        if (filePath.isEmpty()) return 0;
+        String extension = getFileExtension(filePath);
+
+        Set<String> set = new HashSet<>();
+        set.add("tmp");
+        set.add("txt");
+        if (!set.contains(extension))
+            throw new Exception("'" + extension + "' File Extension Not Support. Supported extensions are " + String.join(",", set));
+
+        String content = readFile(filePath);
+        return getSumFromDefaultString(content);
+    }
+
+    private String readFile(String filePath) throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(filePath));
+        return new String(encoded, Charset.defaultCharset());
+    }
+
+    private String getFileExtension(String filePath) {
+        String extension = "";
+        int i = filePath.lastIndexOf('.');
+        if (i > 0) {
+            extension = filePath.substring(i + 1);
+        }
+        return extension;
     }
 }
