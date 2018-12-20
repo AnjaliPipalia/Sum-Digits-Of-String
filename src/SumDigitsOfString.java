@@ -9,4 +9,8 @@ public class SumDigitsOfString {
         }
         return sum;
     }
+
+    public long getHexadecimalSumFromString(String input) {
+        return 0;
+    }
 }
