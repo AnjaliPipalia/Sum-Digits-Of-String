@@ -122,6 +122,4 @@ public class SumDigitsOfStringTest {
             fail("Exception Occurred.");
         }
     }
-
-
 }
